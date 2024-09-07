@@ -1,32 +1,38 @@
 package br.com.comida.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
 
 @Entity
 @Table(name="produto")
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String nome;
 
-    @Column
+    @Column(nullable = false)
     private String peso;
 
-    @Column
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataDeValidade;
+
+    @Column(nullable = false)
+    private String marca;
+
+    @Column(nullable = false)
+    private Long quantidadeDisponivel;
 }

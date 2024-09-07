@@ -19,6 +19,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-hibernate-orm-panache'
     implementation 'io.quarkus:quarkus-jdbc-postgresql'
     implementation 'org.apache.commons:commons-lang3:3.17.0'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     testImplementation 'io.quarkus:quarkus-junit5'

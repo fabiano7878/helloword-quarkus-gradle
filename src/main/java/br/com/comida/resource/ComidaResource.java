@@ -12,6 +12,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.Objects;
+
 @Path("/comida")
 public class ComidaResource {
 
@@ -22,6 +24,6 @@ public class ComidaResource {
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(ComidaDTO comidaDTO){
-        return comidaService.createComida(comidaDTO);
+        return comidaService.validaComidaeCria((v1) -> Objects.nonNull(comidaDTO), comidaDTO);
     }
 }
