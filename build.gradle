@@ -20,12 +20,20 @@ dependencies {
     implementation 'io.quarkus:quarkus-jdbc-postgresql'
     implementation 'org.apache.commons:commons-lang3:3.17.0'
     implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
     testCompileOnly 'org.projectlombok:lombok:1.18.34'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+    testImplementation 'io.quarkus:quarkus-junit5:3.2.0.Final'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 group 'br.com.comida'
@@ -38,6 +46,7 @@ java {
 
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+    useJUnitPlatform()  // Necessário para rodar JUnit 5 com Gradle
 }
 compileJava {
     options.encoding = 'UTF-8'
@@ -46,4 +55,7 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+quarkusDev {
+    // Configuração específica para o modo de desenvolvimento do Quarkus
 }

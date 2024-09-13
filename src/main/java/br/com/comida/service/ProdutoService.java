@@ -11,10 +11,10 @@ import jakarta.validation.Validator;
 import jakarta.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ProdutoService {
@@ -100,6 +100,22 @@ public class ProdutoService {
         return Response.ok(produtosDTO).status(200).build();
     }
 
+    public Response getAllByRecord() {
+        List<Produto> produtos = produtoRepository.listAll();
+        if (Objects.isNull(produtos)) {
+            System.out.printf("Não foi possivel acessar os registros a lista de produtos está: %s !", produtos);
+            return Response.ok("Erro ao buscar a lista de produtos!").status(500).build();
+        }
+
+        List<ProdutoRecord> produtoRecords = produtos.stream().map(p -> new ProdutoRecord(p.getId(),
+                p.getNome(),
+                p.getPeso(),
+                p.getDataDeValidade().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                p.getMarca(),
+                p.getQuantidadeDisponivel())).toList();
+
+        return Response.ok(produtoRecords).status(200).build();
+    }
 
     public Response update(Long id,ProdutoDTO produtoDTO) {
         produtoDTO.setId(id);
@@ -119,4 +135,5 @@ public class ProdutoService {
         boolean deleted = produtoRepository.deleteById(id);
         return Response.ok(String.format("Delete o produto de id: %s foi deletado? %s ", id, deleted)).status(200).build();
     }
+
 }

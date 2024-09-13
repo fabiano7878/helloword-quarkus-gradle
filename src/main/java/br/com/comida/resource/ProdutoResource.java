@@ -35,8 +35,15 @@ public class ProdutoResource {
 
     @GET
     @Transactional
-    public Response getAll(){
+    @Path("/dto")
+    public Response getAllWithDTO(){
         return produtoService.getAll();
+    }
+
+    @GET
+    @Transactional
+    public Response getAll(){
+        return produtoService.getAllByRecord();
     }
 
     @Path("{id}")
